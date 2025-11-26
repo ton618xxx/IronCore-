@@ -27,6 +27,7 @@ public class Enemy_Melee : Enemy
     public ChaseState_Melee chaseState { get; private set; }
 
     public AttackState_Melee attackState { get; private set; }
+    public DeadState_Melee deadState { get; private set; }  
 
     [Header("Attack Data")]
     public AttackData attackData; 
@@ -45,7 +46,8 @@ public class Enemy_Melee : Enemy
         moveState = new MoveState_Melee(this, stateMachine, "move");
         recoveryState = new RecoveryState_Melee(this, stateMachine, "Recovery");
         chaseState = new ChaseState_Melee(this, stateMachine, "Chase");
-        attackState = new AttackState_Melee(this, stateMachine, "Attack"); 
+        attackState = new AttackState_Melee(this, stateMachine, "Attack");
+        deadState = new DeadState_Melee(this, stateMachine, "Idle"); // Idle anim is a place holder, we use ragdoll 
 
     }
 

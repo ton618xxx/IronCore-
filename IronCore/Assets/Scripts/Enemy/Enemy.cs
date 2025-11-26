@@ -53,6 +53,11 @@ public class Enemy : MonoBehaviour
         
     }
 
+    public virtual void GetHit()
+    {
+        Debug.Log(gameObject.name + "got hit"); 
+    }
+
     protected virtual void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, aggresionRange);      

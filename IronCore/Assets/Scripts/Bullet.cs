@@ -66,6 +66,11 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Enemy enemy = collision.gameObject.GetComponentInParent<Enemy>();
+
+        if (enemy != null)
+            enemy.GetHit(); 
+
         CreateImpactFx(collision);
         ReturnBulletToPool();   
 
