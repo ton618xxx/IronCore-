@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float impactForce; 
-    
+    public float impactForce;
+
     private BoxCollider cd;
     private Rigidbody rb;
     private TrailRenderer trailRenderer;
@@ -26,8 +26,8 @@ public class Bullet : MonoBehaviour
 
     public void BulletSetup(float flyDistance, float impactForce)
     {
-        this.impactForce = impactForce; 
-        
+        this.impactForce = impactForce;
+
         bulletDisabled = false;
         cd.enabled = true;
         meshRenderer.enabled = true;
@@ -46,10 +46,10 @@ public class Bullet : MonoBehaviour
     private void ReturnToPoolIfNeeded()
     {
         if (trailRenderer.time < 0)
-            ReturnBulletToPool();   
+            ReturnBulletToPool();
     }
 
-    private void ReturnBulletToPool() => ObjectPool.instance.ReturnObject(gameObject);   
+    private void ReturnBulletToPool() => ObjectPool.instance.ReturnObject(gameObject);
 
 
     private void DisableBulletIfNeeded()
@@ -70,21 +70,30 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        CreateImpactFx(collision);
+        ReturnBulletToPool();
+
         Enemy enemy = collision.gameObject.GetComponentInParent<Enemy>();
+        EnemyShield shield = collision.gameObject.GetComponent<EnemyShield>();
+
+        if (shield != null)
+        {
+            shield.ReduceDurability();
+            return; 
+        }
 
         if (enemy != null)
         {
-            Vector3 force = rb.linearVelocity.normalized * impactForce; 
+            Vector3 force = rb.linearVelocity.normalized * impactForce;
             Rigidbody hitRigidbody = collision.collider.attachedRigidbody;
-            
-            enemy.GetHit();
-            enemy.HitImpact(force, collision.contacts[0].point, hitRigidbody); 
-        } 
 
-        CreateImpactFx(collision);
-        ReturnBulletToPool();   
+            enemy.GetHit();
+            enemy.HitImpact(force, collision.contacts[0].point, hitRigidbody);
+        }
 
     }
+
+
 
     private void CreateImpactFx(Collision collision)
     {
@@ -95,11 +104,11 @@ public class Bullet : MonoBehaviour
             GameObject newImpactFx = ObjectPool.instance.GetObject(bulletImpactFX);
             newImpactFx.transform.position = contact.point;
 
-            ObjectPool.instance.ReturnObject(newImpactFx, 1);   
+            ObjectPool.instance.ReturnObject(newImpactFx, 1);
         }
     }
 }
-          
+
 
 
 

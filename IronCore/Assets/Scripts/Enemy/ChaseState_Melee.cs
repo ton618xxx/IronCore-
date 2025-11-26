@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChaseState_Melee : EnemyState
@@ -17,11 +17,13 @@ public class ChaseState_Melee : EnemyState
 
     public override void Enter()
     {
+
         base.Enter();
 
         enemy.agent.speed = enemy.chaseSpeed;    
         enemy.agent.isStopped = false; 
     }
+        
 
     public override void Exit()
     {
@@ -51,4 +53,5 @@ public class ChaseState_Melee : EnemyState
         }
         return false;   
     }
+
 }
