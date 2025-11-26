@@ -65,6 +65,11 @@ public class Enemy_Melee : Enemy
         stateMachine.currentState.Update(); 
     }
 
+    public override void GetHit()
+    {
+        stateMachine.ChangeState(deadState);
+    }
+
     public void PullWeapon()
     {
         hiddenWeapon.gameObject.SetActive(false);

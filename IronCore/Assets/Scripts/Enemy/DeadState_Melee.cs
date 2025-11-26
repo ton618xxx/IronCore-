@@ -4,16 +4,20 @@ public class DeadState_Melee : EnemyState
 {
 
     private Enemy_Melee enemy; 
+    private Enemy_Ragdoll ragdoll;
     public DeadState_Melee(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
     {
         enemy = enemyBase as Enemy_Melee;   
+        ragdoll = enemy.GetComponent<Enemy_Ragdoll>();  
     }
 
     public override void Enter()
     {
         base.Enter();
         enemy.anim.enabled = false;
-        enemy.agent.isStopped = true; 
+        enemy.agent.isStopped = true;
+
+        ragdoll.RagdollActive(true); 
 
     }
 
