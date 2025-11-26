@@ -3592,6 +3592,7 @@ MonoBehaviour:
     bulletsInMagazine: 100
     magazineCapacity: 100
     totalReserveAmmo: 100
+  bulletImpactForce: 100
   bulletPrefab: {fileID: 3081521368594566161, guid: 10b63c2deddd41f40ba988458a52f1f7, type: 3}
   bulletSpeed: 20
   weaponHolder: {fileID: 1068257389}
@@ -11011,6 +11012,7 @@ GameObject:
   - component: {fileID: 1836702028}
   - component: {fileID: 1836702027}
   - component: {fileID: 1836702026}
+  - component: {fileID: 1836702029}
   m_Layer: 0
   m_Name: Enemy_Melee
   m_TagString: Untagged
@@ -11099,6 +11101,19 @@ Transform:
   - {fileID: 1749137676}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -186.881, z: 0}
+--- !u!114 &1836702029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836702025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0068e7c829bcb484f93b3c8a2b5f2718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_Ragdoll
+  ragdollParent: {fileID: 3259541269840055356}
 --- !u!1 &1845704008
 GameObject:
   m_ObjectHideFlags: 0
