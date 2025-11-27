@@ -11211,8 +11211,9 @@ MonoBehaviour:
   patrolPoints:
   - {fileID: 109417640}
   - {fileID: 1014561009}
-  meleeType: 1
+  meleeType: 2
   shieldTransform: {fileID: 1116437963}
+  dodgeCooldown: 5
   attackData:
     attackName: 
     attackRange: 1
