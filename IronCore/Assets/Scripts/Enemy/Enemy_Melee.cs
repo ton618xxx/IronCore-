@@ -102,6 +102,11 @@ public class Enemy_Melee : Enemy
 
     public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackData.attackRange;
 
+    public void ActivateDodgeRoll()
+    {
+        anim.SetTrigger("Dodge"); 
+    }
+
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
