@@ -112,6 +112,9 @@ public class Enemy_Melee : Enemy
         if (stateMachine.currentState != chaseState)
             return;
 
+        if (Vector3.Distance(transform.position, player.position) < 2f)
+            return; 
+
         if (Time.time > dodgeCooldown + lastTimeDodge)
         {
             lastTimeDodge = Time.time;  

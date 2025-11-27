@@ -11216,7 +11216,7 @@ MonoBehaviour:
   dodgeCooldown: 5
   attackData:
     attackName: 
-    attackRange: 1
+    attackRange: 1.5
     moveSpeed: 0
     attackIndex: 1
     animationSpeed: 1.4
