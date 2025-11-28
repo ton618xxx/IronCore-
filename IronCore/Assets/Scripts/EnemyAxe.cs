@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAxe : MonoBehaviour
 {
-    public Rigidbody rb;
-    public Transform axeVisial;
-    public Transform player;
-    public float flySpeed;
-    public float rotationSpeed;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Transform axeVisial;
 
-    public Vector3 direction;
 
+    private Vector3 direction;
+    private Transform player;
+    private float flySpeed;
+    private float rotationSpeed;
     private float timer = 1;
+
+    public void AxeSetup(float flySpeed, Transform player, float timer)
+    {
+        this.flySpeed = flySpeed;
+        this.player = player;   
+        this.timer = timer;
+    }
 
 
     private void Update()

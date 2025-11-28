@@ -39,6 +39,12 @@ public class Enemy_Melee : Enemy
     private float lastTimeDodge;
 
 
+    [Header("Axe throw ability")]
+    public GameObject axePrefab;
+    public float axeFlySpeed;
+    public float axeAimTimer; 
+    public float axeThrowcooldown;
+    public Transform axeStartPoint; 
 
     [Header("Attack Data")]
     public AttackData attackData;
@@ -79,13 +85,14 @@ public class Enemy_Melee : Enemy
         stateMachine.currentState.Update();
     }
 
-    
-    public void TriggerAbility()
+    public override void AbilityTrigger()
     {
+        base.AbilityTrigger();
+
         moveSpeed = moveSpeed * .6f;
-        Debug.Log("Create axe");
         pulledWeapon.gameObject.SetActive(false);
     }
+
 
     private void InitializeSpeciality()
     {
