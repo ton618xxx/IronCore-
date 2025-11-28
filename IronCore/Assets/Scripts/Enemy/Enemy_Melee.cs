@@ -82,6 +82,7 @@ public class Enemy_Melee : Enemy
     
     public void TriggerAbility()
     {
+        moveSpeed = moveSpeed * .6f;
         Debug.Log("Create axe");
         pulledWeapon.gameObject.SetActive(false);
     }
