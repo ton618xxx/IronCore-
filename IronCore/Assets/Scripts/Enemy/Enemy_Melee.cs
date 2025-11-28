@@ -30,6 +30,8 @@ public class Enemy_Melee : Enemy
     public AttackState_Melee attackState { get; private set; }
     public DeadState_Melee deadState { get; private set; }
 
+    public AbilityState_Melee abilityState { get; private set; }    
+
     [Header("Enemy Settings")]
     public EnemyMelee_Type meleeType;
     public Transform shieldTransform;
@@ -56,7 +58,8 @@ public class Enemy_Melee : Enemy
         recoveryState = new RecoveryState_Melee(this, stateMachine, "Recovery");
         chaseState = new ChaseState_Melee(this, stateMachine, "Chase");
         attackState = new AttackState_Melee(this, stateMachine, "Attack");
-        deadState = new DeadState_Melee(this, stateMachine, "Idle"); // Idle anim is a place holder, we use ragdoll 
+        deadState = new DeadState_Melee(this, stateMachine, "Idle"); // Idle anim is a place holder, we use ragdoll
+        abilityState = new AbilityState_Melee(this, stateMachine, "AxeThrow");                                             
 
     }
 
