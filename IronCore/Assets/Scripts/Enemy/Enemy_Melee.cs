@@ -79,6 +79,13 @@ public class Enemy_Melee : Enemy
         stateMachine.currentState.Update();
     }
 
+    
+    public void TriggerAbility()
+    {
+        Debug.Log("Create axe");
+        pulledWeapon.gameObject.SetActive(false);
+    }
+
     private void InitializeSpeciality()
     {
         if (meleeType == EnemyMelee_Type.Shield)
