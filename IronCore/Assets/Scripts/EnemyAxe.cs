@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAxe : MonoBehaviour
@@ -10,13 +12,27 @@ public class EnemyAxe : MonoBehaviour
 
     public Vector3 direction;
 
+    private float timer = 1;
+
+
     private void Update()
     {
-       axeVisial.Rotate(Vector3.right * rotationSpeed * Time.deltaTime);
-       direction = player.position + Vector3.up - transform.position; 
-       rb.linearVelocity = direction.normalized * flySpeed;
+        axeVisial.Rotate(Vector3.right * rotationSpeed * Time.deltaTime);
+        timer -= Time.deltaTime;
 
-       transform.forward = rb.linearVelocity;
+        if (timer > 0)
+            direction = player.position + Vector3.up - transform.position;
+
+        rb.linearVelocity = direction.normalized * flySpeed;
+
+        transform.forward = rb.linearVelocity;
+
 
     }
 }
+
+
+
+
+
+
