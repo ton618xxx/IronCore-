@@ -10,7 +10,7 @@ public class AbilityState_Melee : EnemyState
 
     private float moveSpeed;
 
-    private float lastTimeAxeThrown; 
+
 
 
     public AbilityState_Melee(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
@@ -21,6 +21,8 @@ public class AbilityState_Melee : EnemyState
     public override void Enter()
     {
         base.Enter();
+
+        enemy.PullWeapon();
 
         moveSpeed = enemy.moveSpeed; 
 
@@ -58,10 +60,8 @@ public class AbilityState_Melee : EnemyState
     {
         base.AbilityTrigger();
 
-        if(Time.time < enemy.axeThrowcooldown + lastTimeAxeThrown)
-            return;
 
-        lastTimeAxeThrown = Time.time;
+
         GameObject newAxe = ObjectPool.instance.GetObject(enemy.axePrefab);
 
         newAxe.transform.position = enemy.axeStartPoint.position;

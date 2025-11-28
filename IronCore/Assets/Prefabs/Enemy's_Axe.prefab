@@ -202,7 +202,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &2250366701713845041
@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e512180301ac04c94c9f38c6d9f1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAxe
+  impactFx: {fileID: 3798109160487133730, guid: d7565a58446885044899388652742c1a, type: 3}
   rb: {fileID: 1641119051339145633}
   axeVisial: {fileID: 7718950386714184395}
 --- !u!1 &8425496159357154058
