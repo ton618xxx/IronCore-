@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -133,9 +134,13 @@ public class Enemy_Melee : Enemy
             return;
 
         if (Vector3.Distance(transform.position, player.position) < 2f)
-            return; 
+            return;
 
-        if (Time.time > dodgeCooldown + lastTimeDodge)
+        float dodgeAnimationDuration = GetAnimationClipDuration("Dodge roll");
+
+        Debug.Log(dodgeAnimationDuration);
+
+        if (Time.time > dodgeCooldown + dodgeAnimationDuration + lastTimeDodge)
         {
             lastTimeDodge = Time.time;  
             anim.SetTrigger("Dodge");
@@ -154,6 +159,19 @@ public class Enemy_Melee : Enemy
             return true;
         }
         return false;   
+    }
+
+    private float GetAnimationClipDuration (string clipName)
+    {
+        AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
+        
+        foreach(AnimationClip clip in clips)
+        {
+            if (clip.name == clipName)
+                return clip.length; 
+        }
+        Debug.Log(clipName + "animation not found!");
+        return 0;
     }
 
     protected override void OnDrawGizmos()
