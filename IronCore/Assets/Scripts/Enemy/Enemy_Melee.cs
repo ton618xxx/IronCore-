@@ -37,7 +37,7 @@ public class Enemy_Melee : Enemy
     public EnemyMelee_Type meleeType;
     public Transform shieldTransform;
     public float dodgeCooldown;
-    private float lastTimeDodge;
+    private float lastTimeDodge = -10;
 
 
     [Header("Axe throw ability")]
@@ -86,6 +86,18 @@ public class Enemy_Melee : Enemy
         base.Update();
 
         stateMachine.currentState.Update();
+
+        if(ShouldEnterBattleMode())
+            EnterBattleMode();  
+    }
+
+    public override void EnterBattleMode()
+    {
+        if(inBattleMode)
+            return;
+        
+        base.EnterBattleMode();
+        stateMachine.ChangeState(recoveryState);    
     }
 
     public override void AbilityTrigger()
@@ -137,8 +149,6 @@ public class Enemy_Melee : Enemy
             return;
 
         float dodgeAnimationDuration = GetAnimationClipDuration("Dodge roll");
-
-        Debug.Log(dodgeAnimationDuration);
 
         if (Time.time > dodgeCooldown + dodgeAnimationDuration + lastTimeDodge)
         {

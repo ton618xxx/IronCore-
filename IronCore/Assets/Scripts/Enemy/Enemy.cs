@@ -20,7 +20,11 @@ public class Enemy : MonoBehaviour
     private bool manualRotation; 
 
     [SerializeField] private Transform[] patrolPoints;
+    private Vector3[] patrolPointsPosition; 
+
     private int currentPatrolIndex; 
+
+    public bool inBattleMode {  get; private set; } 
 
     public Transform player {  get; private set; }  
     public Animator anim {  get; private set; } 
@@ -53,8 +57,27 @@ public class Enemy : MonoBehaviour
         
     }
 
+    protected bool ShouldEnterBattleMode()
+    {
+        bool inAggressionRange = Vector3.Distance(transform.position, player.position) < aggresionRange;
+        
+        if (inAggressionRange && !inBattleMode)
+        {
+            EnterBattleMode();
+            return true;    
+        }
+
+        return false;
+    }
+    
+    public virtual void EnterBattleMode()
+    {
+        inBattleMode = true;
+    }
+    
     public virtual void GetHit()
     {
+        EnterBattleMode(); 
         healthPoints--; 
     }
 
@@ -88,11 +111,11 @@ public class Enemy : MonoBehaviour
     {
         stateMachine.currentState.AbilityTrigger();
     }
-
-    public bool PlayerInAggressionRange() => Vector3.Distance(transform.position,player.position) < aggresionRange;
     public Vector3 GetPatrolDestination()
     {
-        Vector3 destination = patrolPoints[currentPatrolIndex].transform.position;
+        Vector3 destination = patrolPointsPosition[currentPatrolIndex];
+        Debug.Log(destination);
+
         currentPatrolIndex++;
         if (currentPatrolIndex >= patrolPoints.Length)
             currentPatrolIndex = 0; 
@@ -101,20 +124,22 @@ public class Enemy : MonoBehaviour
     }
     private void InitializePatrolPoints()
     {
-        foreach (Transform t in patrolPoints)
+        patrolPointsPosition = new Vector3[patrolPoints.Length];   
+        for (int i = 0; i < patrolPoints.Length; i++)
         {
-            t.parent = null;
+            patrolPointsPosition[i] = patrolPoints[i].position;
+            patrolPoints[i].gameObject.SetActive(false);    
         }
     }
 
-    public Quaternion FaceTarget(Vector3 target)
+    public void FaceTarget(Vector3 target)
     {
         Quaternion targetRotation = Quaternion.LookRotation(target - transform.position);
 
         Vector3 currentEulerAngels = transform.rotation.eulerAngles;
         float yRotation = Mathf.LerpAngle(currentEulerAngels.y, targetRotation.eulerAngles.y, turnSpeed * Time.deltaTime);   
 
-        return Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
+        transform.rotation = Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
     }
 
 
